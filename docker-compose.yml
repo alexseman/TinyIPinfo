@@ -1,0 +1,56 @@
+version: "3"
+services:
+  redis:
+    image: redis:6.0-alpine
+    hostname: redis
+    container_name: tinyipinfo_redis
+    restart: always
+    command: ["redis-server", "--appendonly", "yes"]
+    networks:
+      - tinyipinfonet0
+    ports:
+      - "6379:6379"
+    tty: true
+    volumes:
+      - redis_data:/data
+  app:
+    hostname: tinyipinfo
+    container_name: tinyipinfo_app
+    build:
+      dockerfile: Dockerfile
+      args:
+        - IPINFO_CONTAINER_PATH:${IPINFO_CONTAINER_PATH}
+        - IPINFO_DB_PATH:${IPINFO_DB_PATH}:data
+        - IPINFO_LOG_PATH:${IPINFO_LOG_PATH}:log
+    environment:
+      - IPINFO_ENV=${IPINFO_ENV}
+      - IPINFO_PORT=${IPINFO_PORT}
+      - IPINFO_DB_PATH=${IPINFO_DB_PATH}
+      - IPINFO_LOG_PATH=${IPINFO_LOG_PATH}
+      - IPINFO_REDIS_KEY_USERS=${IPINFO_REDIS_KEY_USERS}
+      - IPINFO_REDIS_KEY_CITIES=${IPINFO_REDIS_KEY_CITIES}
+      - IPINFO_REDIS_KEY_REGIONS=${IPINFO_REDIS_KEY_REGIONS}
+      - IPINFO_REDIS_KEY_IPRANGES=${IPINFO_REDIS_KEY_IPRANGES}
+      - IPINFO_REDIS_KEY_COUNTRIES=${IPINFO_REDIS_KEY_COUNTRIES}
+      - IPINFO_REDIS_KEY_TIMEZONES=${IPINFO_REDIS_KEY_TIMEZONES}
+      - IPINFO_REDIS_KEY_IPRANGESCITIES=${IPINFO_REDIS_KEY_IPRANGESCITIES}
+      - IPINFO_API_PATH=${IPINFO_API_PATH}
+      - IPINFO_API_TOKEN=${IPINFO_API_TOKEN}
+      - IPINFO_CONTAINER_PATH=${IPINFO_CONTAINER_PATH}
+      - IPINFO_TEST_DATA_BILLING_PERIOD_START=${IPINFO_TEST_DATA_BILLING_PERIOD_START}
+      - IPINFO_TEST_DATA_BILLING_PERIOD_END=${IPINFO_TEST_DATA_BILLING_PERIOD_END}
+    networks:
+      - tinyipinfonet0
+    tty: true
+    ports:
+      - "4040:4041"
+    depends_on:
+      - redis
+networks:
+  tinyipinfonet0:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: 'false'
+volumes:
+  redis_data:
+    external: false

@@ -1,0 +1,35 @@
+*.diff
+*.err
+*.log
+*.swp
+*.vi
+*~
+
+## OS or Editor folders
+*.sublime-workspace
+*.sublime-projects
+.DS_Store
+.cache
+.idea
+.project
+.settings
+.tmproj
+.iml
+Thumbs.db
+desktop.ini
+nbproject
+.devilbox
+
+## application
+node_modules
+_data
+data/dataset.csv
+data/dev.db
+data/prod.db
+
+out/
+# TS -incremental file
+tsconfig.tsbuildinfo
+/.parcel-cache/
+/public/
+/data/

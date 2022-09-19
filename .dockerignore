@@ -1,0 +1,14 @@
+node_modules
+.parcel-cache
+.devilbox
+.idea
+.git
+.DS_Store
+.editorconfig
+Dockerfile
+docker-compose.yml
+report.html
+stress-test.json
+data
+log
+dist/api
