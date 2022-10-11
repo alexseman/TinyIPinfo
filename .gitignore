@@ -26,10 +26,10 @@ _data
 data/dataset.csv
 data/dev.db
 data/prod.db
+/data/
+/dist/api/
+/dist/ui/index.*.*
+/dist/ui/index.html
 
-out/
-# TS -incremental file
 tsconfig.tsbuildinfo
 /.parcel-cache/
-/public/
-/data/
