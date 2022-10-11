@@ -31,7 +31,6 @@ const IpQueryCard = ({ipInfoResult}) => {
         case 'region':
           setRegion(ipInfoResult[resultField]);
           break;
-        case 'ip':
         case 'loc':
           setLoc(ipInfoResult[resultField]);
           break;
